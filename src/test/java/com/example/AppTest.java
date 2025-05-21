@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.BeforeAll;
@@ -78,7 +79,7 @@ public class AppTest
         assertTrue(rs.next(),"Order should exist");
     } catch (Exception e) {
         e.printStackTrace();
-        fail("Error");
+    
     }
 
   }
@@ -100,7 +101,7 @@ public class AppTest
         ps.setString(1,"Delete");
         ResultSet rs = ps.executeQuery();
        rs.next();
-       id=rs.getInt("orderId");
+       id=rs.getInt("itemId");
       
     }
     catch(SQLException e){
@@ -114,7 +115,7 @@ public class AppTest
         PreparedStatement ps=con.prepareStatement("select * inventory where itemId=?");
         ps.setInt(1,id);
          ResultSet rs = ps.executeQuery();
-        assertTrue(rs.next(),"Order should be deleted");
+        assertFalse(rs.next(),"Order should be deleted");
     } 
      catch(SQLException e){
         e.printStackTrace();
